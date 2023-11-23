@@ -31,7 +31,7 @@ const LoginForm = () => {
                 />
             </div>
             <div className='flex justify-end mt-4'>
-                <Link to='' className='text-base font-medium text-blue'>Forgot password</Link>
+                <Link to='/' className='text-base font-medium text-blue'>Forgot password</Link>
             </div>
             <div className='mt-10'>
                 <button type='submit'
