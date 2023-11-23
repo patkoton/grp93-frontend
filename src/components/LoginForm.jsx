@@ -43,7 +43,7 @@ const LoginForm = () => {
             <div className='flex justify-center items-center mt-4 pb-10'>
                 <div className='font-normal text-base text-dark-gray'>
                     Don't have an account?
-                    <Link to='/' className='text-blue font-semibold'> Sign Up</Link>
+                    <Link to='/register' className='text-blue font-semibold'> Sign Up</Link>
                 </div>
             </div>
         </form>

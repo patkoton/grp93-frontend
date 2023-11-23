@@ -82,7 +82,7 @@ const RegisterForm = () => {
             <div className='flex justify-center items-center mt-4 pb-10'>
                 <div className='font-normal text-base text-dark-gray'>
                     Already have an account?
-                    <Link to='/' className='text-blue font-semibold'> Login</Link>
+                    <Link to='/login' className='text-blue font-semibold'> Login</Link>
                 </div>
             </div>
         </form>
