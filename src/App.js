@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
+import NotFound from './components/NotFound';
 
 function App() {
 
@@ -13,6 +14,8 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path="/forgot-password" element={<ForgotPassword/>} />
+        <Route path='/404' element={<NotFound/>}/>
+        <Route path='*' element={<NotFound/>}/>
     </Routes>
   );
 }
