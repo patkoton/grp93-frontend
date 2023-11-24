@@ -16,7 +16,7 @@ const Login = () => {
                             <div className='h-full flex justify-center items-center'>
                                 <div className='flex gap-2 items-center'>
                                     <img src={google} alt="" />
-                                    <span className='font-semibold text-base text-dark-blue'>Sign up with Google</span>
+                                    <span className='font-semibold text-base text-dark-blue'>Sign In with Google</span>
                                 </div> 
                             </div>
                         </Link>

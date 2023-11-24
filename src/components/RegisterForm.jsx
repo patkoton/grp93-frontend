@@ -1,21 +1,66 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const RegisterForm = () => {
-    const [isChecked, setIsChecked] = useState(false);
+    const [formData, setFormData] = useState({
+        username: '',
+        enterprise: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        forgotPassword: false,
+    });
 
-    const handleCheckboxChange = () => {
-        setIsChecked(!isChecked);
+    const [message, setMessage] = useState('');
+
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        setFormData({
+        ...formData,
+        [e.target.name]: value,
+        });
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Check if the password and confirm password match
+        if (formData.password !== formData.confirmPassword) {
+        console.error('Password and Confirm Password do not match');
+        // Handle the mismatch (e.g., display error message)
+        setMessage('Password and Confirm Password do not match!');
+        return;
+        }
+
+        const endpoint = formData.forgotPassword ? '/api/forgot-password' : '/api/register';
+
+        try {
+        const response = await axios.post(endpoint, formData);
+        console.log('Request successful:', response.data);
+        // Handle successful request (e.g., show success message, redirect user)
+        setMessage('Request successful. You can now login.');
+        navigate('/login');
+        } catch (error) {
+        console.error('Request error:', error.message);
+        // Handle request errors (e.g., display error message)
+        setMessage('An error occurred. Please try again later.');
+        }
+    };
+
   return (
     <div>
-        <form action="" className='mt-8'>
+        <form action="" onSubmit={handleSubmit} className='mt-8'>
             <div>
-                <label htmlFor="fullname" className='block font-medium text-base text-dark-blue'>
+                <label htmlFor="username" className='block font-medium text-base text-dark-blue'>
                     Full name
                 </label>
                 <input  type="text" 
-                        id='fullname'
+                        name="username" 
+                        value={formData.username} 
+                        onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='Full name'
                 />
@@ -25,7 +70,9 @@ const RegisterForm = () => {
                     Name of enterprise
                 </label>
                 <input  type="text" 
-                        id='enterprise'
+                        name="enterprise" 
+                        value={formData.enterprise} 
+                        onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='Name of enterprise'
                 />
@@ -35,7 +82,9 @@ const RegisterForm = () => {
                     Email address
                 </label>
                 <input  type="email" 
-                        id='email'
+                        name="email" 
+                        value={formData.email} 
+                        onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='Email'
                 />
@@ -45,17 +94,21 @@ const RegisterForm = () => {
                     Password
                 </label>
                 <input  type="password" 
-                        id='password'
+                        name="password" 
+                        value={formData.password} 
+                        onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='Password'
                 />
             </div>
             <div className='mt-4'>
-                <label htmlFor="confpassword" className='block font-medium text-base text-dark-blue'>
+                <label htmlFor="confirmpassword" className='block font-medium text-base text-dark-blue'>
                     Confirm password
                 </label>
                 <input  type="password" 
-                        id='confpassword'
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='Password'
                 />
@@ -63,12 +116,12 @@ const RegisterForm = () => {
             <div className="flex gap-2 items-center mt-4">
                 <input
                     type="checkbox"
-                    id="myCheckbox"
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}
+                    name="forgotPassword"
+                    checked={formData.forgotPassword}
+                    onChange={handleChange}
                     className="h-4 w-4 text-blue focus:ring-blue border-blue rounded"
                 />
-                <label htmlFor="myCheckbox" className="text-dark-gray text-base font-medium">
+                <label htmlFor="forgotPassword" className="text-dark-gray text-base font-medium">
                     Remember password
                 </label>
                 </div>
@@ -86,6 +139,9 @@ const RegisterForm = () => {
                 </div>
             </div>
         </form>
+
+        {/* Display success or error message */}
+      {message && <p>{message}</p>}
     </div>
   )
 }
