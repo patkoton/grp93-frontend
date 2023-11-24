@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const ForgotPassword = () => {
+const ForgotPasswordForm = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
@@ -32,17 +32,16 @@ const ForgotPassword = () => {
 
   return (
     <div>
-      <h2>Forgot Password</h2>
       {/* Forgot Password form */}
       <form onSubmit={handleForgotPassword}>
         {/* Forgot Password form fields */}
         <input  type="email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
-                placeholder="Email" />
+                className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-4'
+                placeholder="Enter Email" />
         <button type="submit"
-                className='w-full h-12 rounded-md bg-blue font-semibold text-base text-input-backg'
+                className='w-full h-12 rounded-md bg-blue font-semibold text-base text-input-backg mt-4'
         >
         Reset Password</button>
       </form>
@@ -53,4 +52,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordForm;
