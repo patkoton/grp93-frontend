@@ -30,6 +30,7 @@ const RegisterForm = () => {
       const handleSubmit = async (e) => {
         const url = baseUrl + 'business/sign-up';
         e.preventDefault();
+        console.log(formData);
     
         try {
           const response = await axios.post(url, formData);

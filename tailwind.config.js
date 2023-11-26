@@ -43,6 +43,8 @@ module.exports = {
       'color7': 'var(--error-200, #FECDCA)',
       'color8': 'var(--success-50, #ECFDF3)',
       'color9': 'var(--success-200, #ABEFC6)',
+      'color10': '#EAECF0',
+      'color11': '#FCFCFC',
     }
   },
   plugins: [],

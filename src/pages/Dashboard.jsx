@@ -4,8 +4,9 @@ import { Bag2, DocumentText, People } from 'iconsax-react'
 import ProductInvoice from '../elements/ProductButton'
 import InvoiceButton from '../elements/InvoiceButton'
 import CustomerButton from '../elements/CustomerButton'
+import MonthlySpending from '../components/MonthlySpending'
 
-const Dashboard = () => {
+const Dashboard = ({totalCustomers, totalInvoices}) => {
   return (
     <Layout>
     <div className='p-6'>
@@ -40,7 +41,7 @@ const Dashboard = () => {
               <People size="16" color="#FFFFFF" />
             </div>
             <h5 className='text-xs font-medium text-dark-gray2 mt-4'>TOTAL CUSTOMERS</h5>
-            <p className='text-2xl font-semibold text-dark-blue mt-4'>123,456</p>
+            <p className='text-2xl font-semibold text-dark-blue mt-4'>${totalCustomers}</p>
           </div> 
           <div className='flex justify-center'>
             <div className='bg-border-line2 w-10/12 h-[0.3px]'></div>
@@ -60,7 +61,7 @@ const Dashboard = () => {
               <DocumentText size="16" color="#FFFFFF" />
             </div>
             <h5 className='text-xs font-medium text-dark-gray2 mt-4'>TOTAL INVOICES</h5>
-            <p className='text-2xl font-semibold text-dark-blue mt-4'>170,032</p>
+            <p className='text-2xl font-semibold text-dark-blue mt-4'>${totalInvoices}</p>
           </div> 
           <div className='flex justify-center'>
             <div className='bg-border-line2 w-10/12 h-[0.3px]'></div>
@@ -79,7 +80,7 @@ const Dashboard = () => {
             <div className='w-6 h-6 rounded-full bg-dark-gray flex justify-center items-center'>
               <DocumentText size="16" color="#FFFFFF" />
             </div>
-            <h5 className='text-xs font-medium text-dark-gray2 mt-4'>OVERDUE INVOICES</h5>
+            <h5 className='text-xs font-medium text-dark-gray2 mt-4'>Total Balance</h5>
             <p className='text-2xl font-semibold text-dark-blue mt-4'>$6,512</p>
           </div> 
           <div className='flex justify-center'>
@@ -89,6 +90,15 @@ const Dashboard = () => {
             <p className='text-xs font-normal text-dark-blue'>Starts from 1 Jan 2023</p>
           </div>
         </div>
+      </div>
+
+      <div className='flex flex-col md:flex-row mt-10'>
+        <div className='flex flex-col md:w-2/3'>
+          <div className='w-full'>
+            <MonthlySpending />
+          </div>
+        </div>
+        <div className='flex flex-col md:w-1/3'></div>
       </div>
     </div>
     </Layout>
