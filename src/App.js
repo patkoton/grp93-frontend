@@ -1,17 +1,23 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import Invoice from './pages/Invoice';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import NotFound from './components/NotFound';
+import Customers from './pages/Customers';
+
+
 
 function App() {
 
   return (
     <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/register' element={<Register/>}/>
+        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/invoice' element={<Invoice/>}/>
+        <Route path='/customer' element={<Customers/>}/>
+        <Route path='/' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path='/404' element={<NotFound/>}/>

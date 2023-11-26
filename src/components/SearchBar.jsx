@@ -19,7 +19,7 @@ const SearchBar = ({ onSearch }) => {
       <input
         type="text"
         placeholder="Search..."
-        className="w-full border border-search-border py-1 pl-10 pr-2 rounded-lg bg-search-back"
+        className="w-full border border-search-border py-1 pl-10 pr-2 rounded-lg bg-search-back placeholder:text-xs"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

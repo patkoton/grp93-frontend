@@ -23,7 +23,7 @@ const LoginForm = () => {
       if (response.data.success) {
         setMessage('Login successful!');
         // Handle successful login, e.g., redirect to a dashboard
-        navigate('/login');
+        navigate('/dashboard');
       } else {
         setMessage('Login failed. Please check your credentials and try again.');
       }
@@ -70,7 +70,7 @@ const LoginForm = () => {
             <div className='flex justify-center items-center mt-4 pb-10'>
                 <div className='font-normal text-base text-dark-gray'>
                     Don't have an account?
-                    <Link to='/register' className='text-blue font-semibold'> Sign Up</Link>
+                    <Link to='/' className='text-blue font-semibold'> Sign Up</Link>
                 </div>
             </div>
         </form>

@@ -19,7 +19,7 @@ const SearchBar2 = ({ onSearch }) => {
       <input
         type="text"
         placeholder="Search by client, invoice number, etc"
-        className="w-full py-1 pl-20 pr-2 rounded-lg bg-transparent outline-none placeholder:text-light-gray2"
+        className="w-full py-1 pl-10 pr-2 rounded-lg bg-transparent outline-none placeholder:text-light-gray2 placeholder:text-xs"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

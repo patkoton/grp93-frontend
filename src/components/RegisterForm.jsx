@@ -1,14 +1,20 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { baseUrl } from '../shared';
 
 const RegisterForm = () => {
     const [formData, setFormData] = useState({
+        name: '',
         username: '',
-        enterprise: '',
         email: '',
         password: '',
-        confirmPassword: '',
+        company_name: '',
+        phone_number: '',
+        street: '',
+        city: '',
+        state: '',
+        zip_code: '',
         forgotPassword: false,
     });
 
@@ -17,64 +23,57 @@ const RegisterForm = () => {
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-        setFormData({
-        ...formData,
-        [e.target.name]: value,
-        });
-    };
-
-    const handleSubmit = async (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+      };
+    
+      const handleSubmit = async (e) => {
+        const url = baseUrl + 'business/sign-up';
         e.preventDefault();
-
-        // Check if the password and confirm password match
-        if (formData.password !== formData.confirmPassword) {
-        console.error('Password and Confirm Password do not match');
-        // Handle the mismatch (e.g., display error message)
-        setMessage('Password and Confirm Password do not match!');
-        return;
-        }
-
-        const endpoint = formData.forgotPassword ? '/api/forgot-password' : '/api/register';
-
+    
         try {
-        const response = await axios.post(endpoint, formData);
-        console.log('Request successful:', response.data);
-        // Handle successful request (e.g., show success message, redirect user)
-        setMessage('Request successful. You can now login.');
-        navigate('/login');
+          const response = await axios.post(url, formData);
+    
+          // Assuming the server responds with a JWT token
+          const { token } = response.data;
+    
+          // Handle the JWT token (e.g., store it in localStorage)
+          localStorage.setItem('jwtToken', token);
+          setMessage('Account successfully created!');
+    
+          // Optionally, you can redirect the user to another page after successful registration
+          navigate('/login');
         } catch (error) {
-        console.error('Request error:', error.message);
-        // Handle request errors (e.g., display error message)
-        setMessage('An error occurred. Please try again later.');
+          console.error('Registration failed:', error.message);
+          setMessage('An error occurred. Please try again.');
         }
-    };
+      };
 
   return (
     <div>
         <form action="" onSubmit={handleSubmit} className='mt-8'>
             <div>
-                <label htmlFor="username" className='block font-medium text-base text-dark-blue'>
+                <label htmlFor="name" className='block font-medium text-base text-dark-blue'>
                     Full name
                 </label>
                 <input  type="text" 
-                        name="username" 
-                        value={formData.username} 
+                        name="name" 
+                        value={formData.name} 
                         onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='Full name'
                 />
             </div>
             <div className='mt-4'>
-                <label htmlFor="enterprise" className='block font-medium text-base text-dark-blue'>
-                    Name of enterprise
+                <label htmlFor="username" className='block font-medium text-base text-dark-blue'>
+                    Username
                 </label>
                 <input  type="text" 
-                        name="enterprise" 
-                        value={formData.enterprise} 
+                        name="username" 
+                        value={formData.username} 
                         onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
-                        placeholder='Name of enterprise'
+                        placeholder='Username'
                 />
             </div>
             <div className='mt-4'>
@@ -102,15 +101,75 @@ const RegisterForm = () => {
                 />
             </div>
             <div className='mt-4'>
-                <label htmlFor="confirmpassword" className='block font-medium text-base text-dark-blue'>
-                    Confirm password
+                <label htmlFor="company_name" className='block font-medium text-base text-dark-blue'>
+                    Name of enterprise
                 </label>
-                <input  type="password" 
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
+                <input  type="text" 
+                        name="company_name" 
+                        value={formData.company_name} 
                         onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
-                        placeholder='Password'
+                        placeholder='Name of enterprise'
+                />
+            </div>
+            <div className='mt-4'>
+                <label htmlFor="phone_number" className='block font-medium text-base text-dark-blue'>
+                    Phone Number
+                </label>
+                <input  type="tel" 
+                        name="phone_number" 
+                        value={formData.phone_number} 
+                        onChange={handleChange}
+                        className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
+                        placeholder='Phone Number'
+                />
+            </div>
+            <div className='mt-4'>
+                <label htmlFor="street" className='block font-medium text-base text-dark-blue'>
+                    Street Address
+                </label>
+                <input  type="text" 
+                        name="street" 
+                        value={formData.street} 
+                        onChange={handleChange}
+                        className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
+                        placeholder='Street'
+                />
+            </div>
+            <div className='mt-4'>
+                <label htmlFor="city" className='block font-medium text-base text-dark-blue'>
+                    City
+                </label>
+                <input  type="text" 
+                        name="city" 
+                        value={formData.city} 
+                        onChange={handleChange}
+                        className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
+                        placeholder='City'
+                />
+            </div>
+            <div className='mt-4'>
+                <label htmlFor="state" className='block font-medium text-base text-dark-blue'>
+                    State
+                </label>
+                <input  type="text" 
+                        name="state" 
+                        value={formData.state} 
+                        onChange={handleChange}
+                        className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
+                        placeholder='State'
+                />
+            </div>
+            <div className='mt-4'>
+                <label htmlFor="zip_code" className='block font-medium text-base text-dark-blue'>
+                    Zip Code
+                </label>
+                <input  type="text" 
+                        name="zip_code" 
+                        value={formData.zip_code} 
+                        onChange={handleChange}
+                        className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
+                        placeholder='Zip Code'
                 />
             </div>
             <div className="flex gap-2 items-center mt-4">
@@ -147,3 +206,19 @@ const RegisterForm = () => {
 }
 
 export default RegisterForm
+
+
+
+
+// <div className='mt-4'>
+//                 <label htmlFor="confirmpassword" className='block font-medium text-base text-dark-blue'>
+//                     Confirm password
+//                 </label>
+//                 <input  type="password" 
+//                         name="confirmPassword"
+//                         value={formData.confirmPassword}
+//                         onChange={handleChange}
+//                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
+//                         placeholder='Password'
+//                 />
+//             </div>

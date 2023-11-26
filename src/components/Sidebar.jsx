@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ArrowCircleLeft, ArrowCircleRight, ArrowDown2, Diagram, Home2, LogoutCurve, Money, Receipt21, Setting2, StatusUp, UserOctagon } from 'iconsax-react';
+import { ArrowCircleLeft, ArrowCircleRight, ArrowDown2, Diagram, Home2, LogoutCurve, Money, People, Receipt21, Setting2, StatusUp, UserOctagon } from 'iconsax-react';
 import profile from '../assets/images/profile.png'
 import SearchBar from './SearchBar';
 
 
 const nav1 = [
-  { name: 'Dashboard', href: '/', icon: <Home2 size="16" color="#FFF" /> },
+  { name: 'Dashboard', href: '/dashboard', icon: <Home2 size="16" color="#FFF" /> },
   { name: 'Invoices', href: '/invoice', icon: <Receipt21 size="16" color="#FFF" variant="Bold" /> },
+  { name: 'Customers', href: '/customer', icon: <People size="16" color="#FFF" /> },
   { name: 'Expenses', href: '/expense', icon: <StatusUp size="16" color="#FFF" /> },
   { name: 'Reporting', href: '/reporting', icon: <Diagram size="16" color="#FFF" /> },
 ]
@@ -68,7 +69,7 @@ const Sidebar = () => {
                 ))}
               </ul>
             ) : (
-              <p>No results found</p>
+              <p> </p>
             )}
           </div>
           {/* Top fixed links */}
@@ -78,8 +79,8 @@ const Sidebar = () => {
                 key={item.name}
                 to={item.href}
                 className={({isActive}) => {
-                  return 'block text-base font-normal' +
-                  (isActive ? 'bg-nav-hover rounded-md text-white' : 'bg-transparent text-white')
+                  return 'block text-base font-normal text-white active:bg-nav-hover active:rounded-md' +
+                  (isActive ? 'bg-nav-hover rounded-md' : 'bg-transparent')
                 }}
               >
                 <div className='flex items-center gap-4 py-2'>

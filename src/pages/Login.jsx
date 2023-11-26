@@ -10,7 +10,7 @@ const Login = () => {
             <div className='flex flex-col md:w-1/2 bg-authImg bg-cover bg-no-repeat bg-center'></div>
             <div className='flex flex-col justify-center md-w-1/2 bg-white px-5 md:px-20 py-10 md:overflow-y-auto'>
                 <div className='w-full h-full'>
-                    <h4 className='font-medium text-3xl md:text-4xl text-dark-blue tracking-tighter'>Create an account</h4>
+                    <h4 className='font-medium text-3xl md:text-4xl text-dark-blue tracking-tighter text-center md:text-start'>Sign In to your Business Account</h4>
                     <div className='h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color mt-4'>
                         <Link to="/">
                             <div className='h-full flex justify-center items-center'>

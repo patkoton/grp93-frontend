@@ -33,11 +33,11 @@ const Header = () => {
               ))}
             </ul>
           ) : (
-            <p>No results found</p>
+            <p> </p>
           )}
         </div>
         <button>
-          <NotificationBing size="16" color="#000000" />
+          <NotificationBing size="16" color="var(--gray-700, #272D37)" />
         </button>
       </div>
     </header>
