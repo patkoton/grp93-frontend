@@ -2,9 +2,12 @@ import axios from 'axios';
 import React from 'react'
 import { FaPlus } from "react-icons/fa6";
 import { baseUrl } from '../shared';
+import { useNavigate } from 'react-router-dom';
 
 
 const PaymentButton = () => {
+    const navigate = useNavigate();
+
     const getAuthToken = () => {
         // Implement logic to get the authentication token from wherever it's stored (e.g., localStorage, Redux store)
         const auth_token = localStorage.getItem('jwtToken');
@@ -14,7 +17,7 @@ const PaymentButton = () => {
       };
 
     const handleClick = async () => {
-        const url = baseUrl + 'service/initialize/65647138ee33c6ddf0ee364a';
+        const url = baseUrl + 'service/initialize/65651a9a5f737ea341c3c853';
         try {
           // Make a GET request to your endpoint
           const authToken = getAuthToken();
@@ -29,6 +32,9 @@ const PaymentButton = () => {
     
           // Handle the response, e.g., log it or update state
           console.log(response.data);
+          if (response.status === true) {
+            navigate('https://checkout.paystack.com/47av7jrg1vq5b54');
+          }
         } catch (error) {
           // Handle errors, e.g., show an error message
           console.error('Error fetching data:', error);

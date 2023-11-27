@@ -2,7 +2,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Invoice from './pages/Invoice';
-import Invoice2 from './pages/Dasboard2';
+import Invoice2 from './pages/Invoice2';
 import BusinessRegister from './pages/BusinessRegister';
 import BusinessLogin from './pages/BusinessLogin';
 import ClientLogin from './pages/ClientLogin';

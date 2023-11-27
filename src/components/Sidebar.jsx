@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ArrowCircleLeft, ArrowCircleRight, ArrowDown2, Diagram, Home2, LogoutCurve, Money, People, Receipt21, Setting2, StatusUp, UserOctagon } from 'iconsax-react';
+import { ArrowCircleLeft, ArrowCircleRight, ArrowDown2,  Home2, LogoutCurve, Money, People, Receipt21, Setting2, UserOctagon } from 'iconsax-react';
 import profile from '../assets/images/profile.png'
 import SearchBar from './SearchBar';
 

@@ -6,7 +6,7 @@ import SearchBar from './SearchBar';
 
 
 const nav1 = [
-  { name: 'Invoices', href: '/invoice', icon: <Receipt21 size="16" color="#FFF" variant="Bold" /> },
+  { name: 'Invoices', href: '/invoice2', icon: <Receipt21 size="16" color="#FFF" variant="Bold" /> },
 ]
 const nav2 = [
   { name: 'Bling', href: '/bling', icon: <Money size="16" color="#FFF" />  },

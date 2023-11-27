@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '../layout/Layout'
+import Layout2 from '../layout/Layout2';
 import axios from 'axios';
 import { baseUrl } from '../shared';
 import PaymentButton from '../elements/PaymentButton';
+
 
 const Invoice2 = () => {
   const [invoices, setInvoices] = useState([]);
@@ -61,7 +62,7 @@ const Invoice2 = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <Layout>
+    <Layout2>
         <div className='p-6'>
             <div className="block md:flex justify-between items-center font-worksans">
                 <h4 className='text-2xl font-bold text-dark-blue mb-4'>Invoice</h4>
@@ -143,7 +144,7 @@ const Invoice2 = () => {
         ))}
       </div>
       </div>
-    </Layout>
+    </Layout2>
   )
 }
 
