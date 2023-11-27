@@ -18,6 +18,14 @@ const ClientRegisterForm = ({ isOpen, onClose }) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const getAuthToken = () => {
+        // Implement logic to get the authentication token from wherever it's stored (e.g., localStorage, Redux store)
+        const auth_token = localStorage.getItem('jwtToken');
+        console.log(auth_token);
+        // Return the authentication token
+        return auth_token;
+      };
+
     const handleSubmit = async (e) => {
         const url = baseUrl + 'client/create-client';
         e.preventDefault();
@@ -25,7 +33,15 @@ const ClientRegisterForm = ({ isOpen, onClose }) => {
 
         try {
           // Send POST request to the backend API
-          const response = await axios.post(url, formData);
+          const authToken = getAuthToken();
+          console.log(authToken);
+
+            // Send POST request to the backend API with the authentication token in the headers
+            const response = await axios.post(url, formData, {
+            headers: {
+                Authorization: `Bearer ${authToken}`,
+            },
+            });
     
           // Handle response, e.g., show success message, close modal, etc.
           setMessage('Email sent for creation of client, kindly check to login');

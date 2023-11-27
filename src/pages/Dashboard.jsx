@@ -5,6 +5,7 @@ import ProductInvoice from '../elements/ProductButton'
 import InvoiceButton from '../elements/InvoiceButton'
 import CustomerButton from '../elements/CustomerButton'
 import MonthlySpending from '../components/MonthlySpending'
+//import SalesAnalysis from './SalesAnalysis'
 
 const Dashboard = ({totalCustomers, totalInvoices}) => {
   return (
@@ -93,12 +94,14 @@ const Dashboard = ({totalCustomers, totalInvoices}) => {
       </div>
 
       <div className='flex flex-col md:flex-row mt-10'>
-        <div className='flex flex-col md:w-2/3'>
+        <div className='flex flex-col md:w-1/3'>
           <div className='w-full'>
             <MonthlySpending />
           </div>
         </div>
-        <div className='flex flex-col md:w-1/3'></div>
+        <div className='flex flex-col md:w-2/3'>
+           
+        </div>
       </div>
     </div>
     </Layout>
@@ -106,3 +109,7 @@ const Dashboard = ({totalCustomers, totalInvoices}) => {
 }
 
 export default Dashboard
+
+// <div className='w-full'>
+//   <SalesAnalysis />
+// </div>

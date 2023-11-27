@@ -98,7 +98,7 @@ const MonthlySpending = () => {
 
   return (
     <div className='rounded-xl bg-color11 border border-color10 shadow shadow-shadow-color p-5'>
-      <h1 className='text-dark-blue text-base font-semibold mb-10'>Companies Monthly spending</h1>
+      <h2 className='text-dark-blue text-base font-semibold mb-10'>Companies Monthly spending</h2>
       <InnerRadiusGraph data={data} />
     </div>
   );

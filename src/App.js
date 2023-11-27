@@ -2,6 +2,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Invoice from './pages/Invoice';
+import Invoice2 from './pages/Dasboard2';
 import BusinessRegister from './pages/BusinessRegister';
 import BusinessLogin from './pages/BusinessLogin';
 import ClientLogin from './pages/ClientLogin';
@@ -17,6 +18,7 @@ function App() {
     <Routes>
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/invoice' element={<Invoice/>}/>
+        <Route path='/invoice2' element={<Invoice2/>}/>
         <Route path='/customer' element={<Customers/>}/>
         <Route path='/' element={<BusinessRegister/>}/>
         <Route path='/login' element={<BusinessLogin/>}/>

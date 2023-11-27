@@ -6,9 +6,7 @@ import SearchBar from './SearchBar';
 
 
 const nav1 = [
-  { name: 'Dashboard', href: '/dashboard', icon: <Home2 size="16" color="#FFF" /> },
   { name: 'Invoices', href: '/invoice', icon: <Receipt21 size="16" color="#FFF" variant="Bold" /> },
-  { name: 'Customers', href: '/customer', icon: <People size="16" color="#FFF" /> },
 ]
 const nav2 = [
   { name: 'Bling', href: '/bling', icon: <Money size="16" color="#FFF" />  },
@@ -17,7 +15,7 @@ const nav2 = [
 ]
 
 
-const Sidebar = ({ onLogout }) => {
+const Sidebar2 = ({ onLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -145,4 +143,4 @@ const Sidebar = ({ onLogout }) => {
   );
 };
 
-export default Sidebar;
+export default Sidebar2;

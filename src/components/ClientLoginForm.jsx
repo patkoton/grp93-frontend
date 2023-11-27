@@ -29,7 +29,7 @@ const ClientLoginForm = () => {
       // Save the JWT token to local storage or state for future requests
       localStorage.setItem('jwtToken', jwtToken);
       setMessage('Login Successful!');
-      navigate('/dashboard')
+      navigate('/dasboard2')
       // Redirect or perform any other actions after successful login
       //navigate('/dashboard')
     } catch (error) {
@@ -48,7 +48,7 @@ const ClientLoginForm = () => {
                 <input  type="text" 
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
+                        className='w-full md:w-[408px] h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='Username'
                 />
             </div>
@@ -59,7 +59,7 @@ const ClientLoginForm = () => {
                 <input  type="password" 
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
+                        className='w-full md:w-[408px] h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='Password'
                 />
             </div>
@@ -68,16 +68,10 @@ const ClientLoginForm = () => {
             </div>
             <div className='mt-10'>
                 <button type='submit'
-                        className='w-full h-12 rounded-md bg-blue font-semibold text-base text-input-backg'
+                        className='w-full md:w-[408px] h-12 rounded-md bg-blue font-semibold text-base text-input-backg'
                 >
                     Login
                 </button>
-            </div>
-            <div className='flex justify-center items-center mt-4 pb-10'>
-                <div className='font-normal text-base text-dark-gray'>
-                    Don't have an account?
-                    <Link to='/' className='text-blue font-semibold'> Sign Up</Link>
-                </div>
             </div>
         </form>
 
