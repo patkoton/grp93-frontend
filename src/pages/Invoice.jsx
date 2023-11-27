@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../layout/Layout'
 import InvoiceButton from '../elements/InvoiceButton'
 import axios from 'axios';
+import { baseUrl } from '../shared';
 
 const Invoice = () => {
   const [invoices, setInvoices] = useState([]);
@@ -15,8 +16,9 @@ const Invoice = () => {
   useEffect(() => {
     // Fetch data from the backend API
     const fetchData = async () => {
+      const url = baseUrl + 'invoice/invoice-information';
       try {
-        const response = await axios.get('https://your-api-endpoint/invoices');
+        const response = await axios.get(url);
         const allInvoices = response.data;
 
         // Calculate total invoices
@@ -61,24 +63,24 @@ const Invoice = () => {
   return (
     <Layout>
       <div className='p-6'>
-        <div className="flex justify-between items-center font-worksans">
-          <h4 className='text-2xl font-bold text-dark-blue'>Invoice</h4>
+        <div className="block md:flex justify-between items-center font-worksans">
+          <h4 className='text-2xl font-bold text-dark-blue mb-4'>Invoice</h4>
           <InvoiceButton />
         </div>
         <div className='flex flex-col md:flex-row mt-6'>
-          <div className='flex flex-col md:w-1/4 border-[0.3px] border-l-0 border-border-line2 py-5 hover:bg-active-back hover:shadow hover:shadow-shadow-color hover:rounded-xl'>
+          <div className='flex flex-col md:w-1/4 border-[0.3px] border-r-0 md:border-r border-l-0 border-border-line2 py-5 hover:bg-active-back hover:shadow hover:shadow-shadow-color hover:rounded-xl'>
             <div className='m-auto text-center'>
               <h5 className='text-xs font-medium text-dark-gray2'>ALL INVOICES</h5>
               <p className='text-2xl font-semibold text-dark-blue mt-4'>${totalInvoices}</p>
             </div>
           </div>
-          <div className='flex flex-col md:w-1/4 border-[0.3px] border-l-0 border-border-line2 py-5 hover:bg-active-back hover:shadow hover:shadow-shadow-color hover:rounded-xl'>
+          <div className='flex flex-col md:w-1/4 border-[0.3px] border-r-0 md:border-r border-l-0 border-border-line2 py-5 hover:bg-active-back hover:shadow hover:shadow-shadow-color hover:rounded-xl'>
             <div className='m-auto text-center'>
               <h5 className='text-xs font-medium text-dark-gray2'>PAID INVOICES</h5>
               <p className='text-2xl font-semibold text-dark-blue mt-4'>${paidInvoices}</p>
             </div>
           </div>
-          <div className='flex flex-col md:w-1/4 border-[0.3px] border-l-0 border-border-line2 py-5 hover:bg-active-back hover:shadow hover:shadow-shadow-color hover:rounded-xl'>
+          <div className='flex flex-col md:w-1/4 border-[0.3px] border-r-0 md:border-r border-l-0 border-border-line2 py-5 hover:bg-active-back hover:shadow hover:shadow-shadow-color hover:rounded-xl'>
             <div className='m-auto text-center'>
               <h5 className='text-xs font-medium text-dark-gray2'>OUTSTANDING INVOICES</h5>
               <p className='text-2xl font-semibold text-dark-blue mt-4'>${outstandingInvoices}</p>
@@ -92,39 +94,41 @@ const Invoice = () => {
           </div>
         </div>
 
-        <table className="min-w-full bg-color1 border border-color2 mt-12">
-        <thead>
-          <tr>
-            <th className="py-2 pl-2 text-xs font-medium text-color3"><input type="checkbox" /></th>
-            <th className="py-2 pr-4 text-xs font-medium text-color3">Client</th>
-            <th className="py-2 px-4 text-xs font-medium text-color3">Invoice Number</th>
-            <th className="py-2 px-4 text-xs font-medium text-color3">Issue Date</th>
-            <th className="py-2 px-4 text-xs font-medium text-color3">Due Date</th>
-            <th className="py-2 px-4 text-xs font-medium text-color3">Amount</th>
-            <th className="py-2 px-4 text-xs font-medium text-color3">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentInvoices.map((invoice) => (
-            <tr key={invoice.id}>
-              <td className="py-2 px-4 border-b border-color2">
-                <input type="checkbox" />
-              </td>
-              <td className="py-2 px-4 border-b border-color2">
-                <div>
-                  <h4 className="text-sm font-medium text-color4">{invoice.client}</h4>
-                  <p className="text-xs font-normal text-color5">{invoice.email}</p>
-                </div>
-              </td>
-              <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.invoiceNumber}</td>
-              <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.issueDate}</td>
-              <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.dueDate}</td>
-              <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.amount}</td>
-              <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3"><div className={`rounded-2xl p-1 + ${invoice.status === "paid" ? 'bg-color8 border border-color9' : 'bg-color6 border border-color7'}`}>{invoice.status}</div></td>
+        <div className='overflow-x-auto'>
+          <table className="min-w-full table-auto bg-color1 border border-color2 mt-12">
+          <thead>
+            <tr>
+              <th className="py-2 pl-2 text-xs font-medium text-color3"><input type="checkbox" /></th>
+              <th className="py-2 pr-4 text-xs font-medium text-color3">Client</th>
+              <th className="py-2 px-4 text-xs font-medium text-color3">Invoice Number</th>
+              <th className="py-2 px-4 text-xs font-medium text-color3">Issue Date</th>
+              <th className="py-2 px-4 text-xs font-medium text-color3">Due Date</th>
+              <th className="py-2 px-4 text-xs font-medium text-color3">Amount</th>
+              <th className="py-2 px-4 text-xs font-medium text-color3">Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {currentInvoices.map((invoice) => (
+              <tr key={invoice.id}>
+                <td className="py-2 px-4 border-b border-color2">
+                  <input type="checkbox" />
+                </td>
+                <td className="py-2 px-4 border-b border-color2">
+                  <div>
+                    <h4 className="text-sm font-medium text-color4">{invoice.client}</h4>
+                    <p className="text-xs font-normal text-color5">{invoice.email}</p>
+                  </div>
+                </td>
+                <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.invoiceNumber}</td>
+                <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.issueDate}</td>
+                <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.dueDate}</td>
+                <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.amount}</td>
+                <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3"><div className={`rounded-2xl p-1 + ${invoice.status === "paid" ? 'bg-color8 border border-color9' : 'bg-color6 border border-color7'}`}>{invoice.status}</div></td>
+              </tr>
+            ))}
+          </tbody>
+          </table>
+        </div>
 
       {/* Pagination */}
       <div className="flex justify-center mt-4">

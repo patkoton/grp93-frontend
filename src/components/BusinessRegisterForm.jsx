@@ -3,19 +3,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { baseUrl } from '../shared';
 
-const RegisterForm = () => {
+const BusinessRegisterForm = () => {
     const [formData, setFormData] = useState({
-        name: '',
-        username: '',
-        email: '',
-        password: '',
-        company_name: '',
-        phone_number: '',
-        street: '',
-        city: '',
-        state: '',
-        zip_code: '',
-        forgotPassword: false,
+        name : '',
+        username : '',
+        email : '',
+        password : '',
+        company_name : '',
+        phone_number : '',
+        address : {
+            street : '',
+            city : '',
+            state : '',
+            zip_code : ''
+        }
     });
 
     const [message, setMessage] = useState('');
@@ -24,31 +25,38 @@ const RegisterForm = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-      };
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value,
+          address: {
+            ...prevData.address,
+            [name]: value
+          }
+        }));
+    };
     
-      const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         const url = baseUrl + 'business/sign-up';
         e.preventDefault();
         console.log(formData);
-    
-        try {
-          const response = await axios.post(url, formData);
-    
-          // Assuming the server responds with a JWT token
-          const { token } = response.data;
-    
-          // Handle the JWT token (e.g., store it in localStorage)
-          localStorage.setItem('jwtToken', token);
-          setMessage('Account successfully created!');
-    
-          // Optionally, you can redirect the user to another page after successful registration
-          navigate('/login');
-        } catch (error) {
-          console.error('Registration failed:', error.message);
-          setMessage('An error occurred. Please try again.');
+
+    try {
+        const response = await axios.post(url, formData);
+
+        // Assuming the server responds with a JWT token
+        const { token } = response.data;
+
+        // Handle the JWT token (e.g., store it in localStorage)
+        localStorage.setItem('jwtToken', token);
+        setMessage('Account successfully created!');
+
+        // Optionally, you can redirect the user to another page after successful registration
+        navigate('/login');
+    } catch (error) {
+            console.error('Registration failed:', error.message);
+            setMessage('An error occurred. Please try again.');
         }
-      };
+    };
 
   return (
     <div>
@@ -131,7 +139,7 @@ const RegisterForm = () => {
                 </label>
                 <input  type="text" 
                         name="street" 
-                        value={formData.street} 
+                        value={formData.address.street} 
                         onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='Street'
@@ -143,7 +151,7 @@ const RegisterForm = () => {
                 </label>
                 <input  type="text" 
                         name="city" 
-                        value={formData.city} 
+                        value={formData.address.city} 
                         onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='City'
@@ -155,7 +163,7 @@ const RegisterForm = () => {
                 </label>
                 <input  type="text" 
                         name="state" 
-                        value={formData.state} 
+                        value={formData.address.state} 
                         onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='State'
@@ -167,7 +175,7 @@ const RegisterForm = () => {
                 </label>
                 <input  type="text" 
                         name="zip_code" 
-                        value={formData.zip_code} 
+                        value={formData.address.zip_code} 
                         onChange={handleChange}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
                         placeholder='Zip Code'
@@ -201,12 +209,12 @@ const RegisterForm = () => {
         </form>
 
         {/* Display success or error message */}
-      {message && <p>{message}</p>}
+      {message && <p className='-mt-10'>{message}</p>}
     </div>
   )
 }
 
-export default RegisterForm
+export default BusinessRegisterForm
 
 
 

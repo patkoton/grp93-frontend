@@ -1,35 +1,40 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { baseUrl } from '../shared';
 
-const LoginForm = () => {
-  const [email, setEmail] = useState('');
+const BusinessLoginForm = () => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
+    const url = baseUrl + 'auth/login-business';
     e.preventDefault();
 
     try {
-      // Send a request to your backend API for authentication
-      const response = await axios.post('YOUR_BACKEND_API_ENDPOINT/login', {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        url,
+        {
+          username,
+          password,
+        }
+      );
 
-      // Check the response from the server
-      if (response.data.success) {
-        setMessage('Login successful!');
-        // Handle successful login, e.g., redirect to a dashboard
-        navigate('/dashboard');
-      } else {
-        setMessage('Login failed. Please check your credentials and try again.');
-      }
+      // Assuming the backend returns a JWT token upon successful login
+      const jwtToken = response.data.token;
+
+      // Save the JWT token to local storage or state for future requests
+      localStorage.setItem('jwtToken', jwtToken);
+      setMessage('Login Successful!');
+
+      // Redirect or perform any other actions after successful login
+      navigate('/dashboard')
     } catch (error) {
-      console.error('Error logging in:', error.message);
-      setMessage('An error occurred. Please try again later.');
+      console.error('Login failed', error);
+      setMessage('Login failed, try again!');
     }
   };
   
@@ -37,14 +42,14 @@ const LoginForm = () => {
     <div>
         <form action="" onSubmit={handleLogin} className='mt-8'>
             <div className=''>
-                <label htmlFor="email" className='block font-medium text-base text-dark-blue'>
-                    Email address
+                <label htmlFor="username" className='block font-medium text-base text-dark-blue'>
+                    Username
                 </label>
-                <input  type="email" 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                <input  type="text" 
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
-                        placeholder='Email'
+                        placeholder='Username'
                 />
             </div>
             <div className='mt-4'>
@@ -77,9 +82,9 @@ const LoginForm = () => {
         </form>
 
         {/* Display login status message */}
-      {message && <p>{message}</p>}
+      {message && <p className='-mt-10'>{message}</p>}
     </div>
   )
 }
 
-export default LoginForm
+export default BusinessLoginForm

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import google from '../assets/images/google-logo.svg'
-import RegisterForm from '../components/RegisterForm'
+import BusinessRegisterForm from '../components/BusinessRegisterForm'
 
-const Register = () => {
+const BusinessRegister = () => {
   return (
     <div>
         <div className='min-h-screen flex flex-col md:flex-row font-worksans'>
@@ -25,7 +25,7 @@ const Register = () => {
                             <span className='font-semibold text-base text-dark-blue'>OR</span>
                             <div className='w-[45%] h-[1px] md:w-[204px] bg-light-gray'></div>
                         </div>
-                        <RegisterForm />
+                        <BusinessRegisterForm />
                     </div>
                 </div> 
             </div>
@@ -34,4 +34,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default BusinessRegister

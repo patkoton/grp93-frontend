@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import google from '../assets/images/google-logo.svg'
-import LoginForm from '../components/LoginForm'
+import BusinessLoginForm from '../components/BusinessLoginForm'
 
-const Login = () => {
+const BusinessLogin = () => {
   return (
     <div>
         <div className='min-h-screen flex flex-col md:flex-row font-worksans'>
@@ -16,7 +16,7 @@ const Login = () => {
                             <div className='h-full flex justify-center items-center'>
                                 <div className='flex gap-2 items-center'>
                                     <img src={google} alt="" />
-                                    <span className='font-semibold text-base text-dark-blue'>Sign In with Google</span>
+                                    <span className='font-semibold text-base text-dark-blue'>Sign in with Google</span>
                                 </div> 
                             </div>
                         </Link>
@@ -25,7 +25,7 @@ const Login = () => {
                             <span className='font-semibold text-base text-dark-blue'>OR</span>
                             <div className='w-[45%] h-[1px] md:w-[204px] bg-light-gray'></div>
                         </div>
-                        <LoginForm />
+                        <BusinessLoginForm />
                     </div>
                 </div> 
             </div>
@@ -34,4 +34,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default BusinessLogin

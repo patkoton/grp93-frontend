@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { baseUrl } from '../shared';
 
-const ForgotPasswordForm = () => {
+const ForgotPasswordForm1 = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
 
   const handleForgotPassword = async (e) => {
+    const url = baseUrl + 'auth/forgot-password';
     e.preventDefault();
 
     try {
       // Send a request to your backend API to initiate the password reset process
-      const response = await axios.post('YOUR_BACKEND_API_ENDPOINT/reset-password', {
+      const response = await axios.post(url, {
         email: email,
       });
 
@@ -47,9 +49,9 @@ const ForgotPasswordForm = () => {
       </form>
 
       {/* Display success or error message */}
-      {message && <p>{message}</p>}
+      {message && <p className='-mt-10'>{message}</p>}
     </div>
   );
 };
 
-export default ForgotPasswordForm;
+export default ForgotPasswordForm1;

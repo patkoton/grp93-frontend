@@ -2,9 +2,10 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Invoice from './pages/Invoice';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import ForgotPassword from './pages/ForgotPassword';
+import BusinessRegister from './pages/BusinessRegister';
+import BusinessLogin from './pages/BusinessLogin';
+import ClientLogin from './pages/ClientLogin';
+import BusinessForgotPassword from './pages/BusinessForgotPassword';
 import NotFound from './components/NotFound';
 import Customers from './pages/Customers';
 
@@ -17,9 +18,10 @@ function App() {
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/invoice' element={<Invoice/>}/>
         <Route path='/customer' element={<Customers/>}/>
-        <Route path='/' element={<Register/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path="/forgot-password" element={<ForgotPassword/>} />
+        <Route path='/' element={<BusinessRegister/>}/>
+        <Route path='/login' element={<BusinessLogin/>}/>
+        <Route path='/client-login' element={<ClientLogin/>}/>
+        <Route path="/forgot-password" element={<BusinessForgotPassword/>} />
         <Route path='/404' element={<NotFound/>}/>
         <Route path='*' element={<NotFound/>}/>
     </Routes>

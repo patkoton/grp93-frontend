@@ -10,8 +10,8 @@ const Dashboard = ({totalCustomers, totalInvoices}) => {
   return (
     <Layout>
     <div className='p-6'>
-      <div className="flex justify-between items-center font-worksans">
-        <h4 className='text-2xl font-bold text-dark-blue'>Dashboard</h4>
+      <div className="block md:flex justify-between items-center font-worksans">
+        <h4 className='text-2xl font-bold text-dark-blue mb-4 md:mb-0'>Dashboard</h4>
         <InvoiceButton />
       </div>
       <div className='flex flex-col md:flex-row mt-6'>

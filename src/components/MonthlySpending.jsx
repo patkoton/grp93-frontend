@@ -53,7 +53,7 @@ const InnerRadiusGraph = ({ data }) => {
   };
 
   return (
-    <div className='flex items-center gap-4 md:gap-6'>
+    <div className='block md:flex -ml-4 md:ml-0 items-center md:gap-6'>
       <canvas
         ref={canvasRef}
         width={200}
