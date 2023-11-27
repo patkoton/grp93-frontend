@@ -4,8 +4,8 @@ const InnerRadiusGraph = ({ data }) => {
   const canvasRef = useRef(null);
   const [centerX, setCenterX] = useState(0);
   const [centerY, setCenterY] = useState(0);
-  const [outerRadius, setOuterRadius] = useState(100);
-  const [innerRadius, setInnerRadius] = useState(85);
+  const [outerRadius] = useState(100);
+  const [innerRadius] = useState(85);
 
   useEffect(() => {
     const canvas = canvasRef.current;
