@@ -10,6 +10,7 @@ const ClientRegisterForm = ({ isOpen, onClose }) => {
         clientEmail: '',
       });
 
+      console.log(formData);
     const [message, setMessage] = useState('');
 
     //const navigate = useNavigate();
