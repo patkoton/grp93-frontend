@@ -90,11 +90,11 @@ const Invoice2 = () => {
   }
 
   // Function to check if an invoice is overdue
-  const isOverdue = (dueDate) => {
-    const today = new Date();
-    const due = new Date(dueDate);
-    return due < today;
-  };
+  // const isOverdue = (dueDate) => {
+  //   const today = new Date();
+  //   const due = new Date(dueDate);
+  //   return due < today;
+  // };
 
   // Get current invoices
   // const indexOfLastInvoice = currentPage * invoicesPerPage;
@@ -225,7 +225,7 @@ const Invoice2 = () => {
                   </td>
                   <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">
                     {invoice.status !== "paid" && (
-                      <button className="rounded-2xl p-1 bg-color8 border border-color9 bg-color6 border border-color7" onClick={() => handlePayClick(invoice._id)}>Click here to pay</button>
+                      <button className="rounded-2xl p-1 bg-color6 border border-color7" onClick={() => handlePayClick(invoice._id)}>Click here to pay</button>
                     )}
                   </td>
                 </tr>
