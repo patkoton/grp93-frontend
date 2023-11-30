@@ -68,25 +68,24 @@ const Invoice2 = () => {
     fetchData();
   }, []);
 
-
   const handlePayClick = async (invoiceId) => {
-    const url = baseUrl + `service/initialize/${invoiceId}`
-    const token = localStorage.getItem("jwtToken")
+    const url = baseUrl + `service/initialize/${invoiceId}`;
+    const token = localStorage.getItem("jwtToken");
     try {
       const responses = await axios.get(url, {
-        headers : {
-          Authorization : `Bearer ${token}`
-        }
-      })
-      const { data } = responses
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { data } = responses;
       if (data.status === true) {
-        const authorizationUrl = data.data.authorization_url
-        window.open(authorizationUrl, "_blank")
+        const authorizationUrl = data.data.authorization_url;
+        window.open(authorizationUrl, "_blank");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }
+  };
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -211,7 +210,12 @@ const Invoice2 = () => {
                   </td>
                   <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">
                     {invoice.status !== "paid" && (
-                      <button className="rounded-2xl p-1 bg-color8 border border-color9 bg-color6 border border-color7" onClick={() => handlePayClick(invoice._id)}>Click here to pay</button>
+                      <button
+                        className="rounded-2xl p-1 bg-color8 border border-color bg-color border-color7"
+                        onClick={() => handlePayClick(invoice._id)}
+                      >
+                        Click here to pay
+                      </button>
                     )}
                   </td>
                 </tr>
