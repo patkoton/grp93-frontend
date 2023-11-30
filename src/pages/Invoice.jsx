@@ -15,7 +15,7 @@ const Invoice = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [invoicesPerPage] = useState(10);
   const [allInvoice, setAllInvoice] = useState([]);
-  const [information, setInformation] = useState([])
+  // const [information, setInformation] = useState([])
 
   useEffect(() => {
     const getAuthToken = () => {
@@ -36,9 +36,9 @@ const Invoice = () => {
           },
         });
         const allInvoices = response.data;
-        const informations = allInvoices.information
+        // const informations = allInvoices.information
         setAllInvoice(allInvoices)
-        setInformation(informations)
+        // setInformation(informations)
 
         // Calculate total invoices
         setTotalInvoices(allInvoices.allInvoice);
