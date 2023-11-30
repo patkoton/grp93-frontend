@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { ArrowCircleLeft, ArrowCircleRight, ArrowDown2,  Home2, LogoutCurve, Money, People, Receipt21, Setting2, UserOctagon } from 'iconsax-react';
 import profile from '../assets/images/profile.png'
 import SearchBar from './SearchBar';
@@ -24,6 +24,8 @@ const Sidebar = ({ onLogout }) => {
     setIsOpen(!isOpen);
   };
 
+  const navigate = useNavigate()
+
   const [searchResults, setSearchResults] = useState([]);
 
   const allItems = [
@@ -44,10 +46,8 @@ const Sidebar = ({ onLogout }) => {
 
   const handleLogout = () => {
     // Perform any additional logout logic, e.g., clearing tokens or session data
-    clearUserSession();
-
-    // Call the onLogout function passed as a prop
-    onLogout();
+    localStorage.removeItem("jwtToken")
+    navigate("/login")
   };
 
   const clearUserSession = () => {
@@ -58,6 +58,8 @@ const Sidebar = ({ onLogout }) => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
   };
+
+  console.log(clearUserSession);
 
   return (
     <div className={`bg-dark-blue2 relative text-white p-4 ${isOpen ? 'w-64' : 'w-16'}`}>
@@ -122,10 +124,8 @@ const Sidebar = ({ onLogout }) => {
               </div>
               </NavLink>
             ))}
-            <div className='mt-12'>
-              <NavLink 
-                key='logout'
-                to='/logout'
+            <div className='mt-12 cursor-pointer'>
+              <div
                 className={({isActive}) => {
                   return 'text-base font-normal' +
                   (isActive ? 'bg-nav-hover rounded-md text-white' : 'bg-transparent text-white')
@@ -134,9 +134,9 @@ const Sidebar = ({ onLogout }) => {
               >
               <div className='flex items-center gap-4 py-2'>
                 <div className={`${isOpen ? 'block' : 'ml-2'}`}><LogoutCurve size="16" color="#FFF" /></div>
-                <div className={`${isOpen ? 'block' : 'hidden'}`}>Logout</div>
+                <div className={`${isOpen ? 'block' : 'hidden'}`} onClick={handleLogout}>Logout</div>
               </div>
-              </NavLink>
+              </div>
             </div>
         </div>
       </div>

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { ArrowCircleLeft, ArrowCircleRight, ArrowDown2, LogoutCurve, Money, Receipt21, Setting2, UserOctagon } from 'iconsax-react';
 import profile from '../assets/images/profile.png'
 import SearchBar from './SearchBar';
 
 
 const nav1 = [
-  { name: 'Invoices', href: '/invoice2', icon: <Receipt21 size="16" color="#FFF" variant="Bold" /> },
+  { name: 'Invoices', href: '/client-login', icon: <Receipt21 size="16" color="#FFF" variant="Bold" /> },
 ]
 const nav2 = [
   { name: 'Billing', href: '/bling', icon: <Money size="16" color="#FFF" />  },
@@ -21,6 +21,9 @@ const Sidebar2 = ({ onLogout }) => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
+const navigate = useNavigate()
+
 
   const [searchResults, setSearchResults] = useState([]);
 
@@ -42,10 +45,12 @@ const Sidebar2 = ({ onLogout }) => {
 
   const handleLogout = () => {
     // Perform any additional logout logic, e.g., clearing tokens or session data
-    clearUserSession();
+    // clearUserSession();
 
     // Call the onLogout function passed as a prop
-    onLogout();
+    // onLogout();
+    localStorage.removeItem("jwtToken")
+    navigate("/client-login")
   };
 
   const clearUserSession = () => {
@@ -56,6 +61,8 @@ const Sidebar2 = ({ onLogout }) => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
   };
+
+  console.log(clearUserSession);
 
   return (
     <div className={`bg-dark-blue2 relative text-white p-4 ${isOpen ? 'w-64' : 'w-16'}`}>
@@ -120,21 +127,19 @@ const Sidebar2 = ({ onLogout }) => {
               </div>
               </NavLink>
             ))}
-            <div className='mt-12'>
-              <NavLink 
-                key='logout'
-                to='/logout'
+            <div className='mt-12 cursor-pointer'>
+              <div 
                 className={({isActive}) => {
-                  return 'text-base font-normal' +
+                  return 'text-base font-normal cursor-pointer' +
                   (isActive ? 'bg-nav-hover rounded-md text-white' : 'bg-transparent text-white')
                 }}
                 onClick={handleLogout}
               >
               <div className='flex items-center gap-4 py-2'>
                 <div className={`${isOpen ? 'block' : 'ml-2'}`}><LogoutCurve size="16" color="#FFF" /></div>
-                <div className={`${isOpen ? 'block' : 'hidden'}`}>Logout</div>
+                <div className={`${isOpen ? 'block' : 'hidden'}`} onClick={handleLogout}>Logout</div>
               </div>
-              </NavLink>
+              </div>
             </div>
         </div>
       </div>
