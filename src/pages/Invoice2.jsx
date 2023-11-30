@@ -18,7 +18,6 @@ const Invoice2 = () => {
     const getAuthToken = () => {
       // Implement logic to get the authentication token from wherever it's stored (e.g., localStorage, Redux store)
       const auth_token = localStorage.getItem("jwtToken");
-      // Return the authentication token
       return auth_token;
     };
     // Fetch data from the backend API
