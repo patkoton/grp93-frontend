@@ -39,6 +39,7 @@ const Invoice = () => {
         const informations = allInvoices.information
         setAllInvoice(allInvoices)
         setInformation(informations)
+        console.log(information);
 
         // Calculate total invoices
         setTotalInvoices(allInvoices.allInvoice);
@@ -62,7 +63,7 @@ const Invoice = () => {
     };
 
     fetchData();
-  }, []);
+  },);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);

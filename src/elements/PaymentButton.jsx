@@ -1,6 +1,5 @@
 import axios from "axios";
 import React from "react";
-import { FaPlus } from "react-icons/fa6";
 import { baseUrl } from "../shared";
 
 const PaymentButton = () => {
@@ -36,6 +35,7 @@ const PaymentButton = () => {
       console.error("Error fetching data:", error);
     }
   };
+  console.log(handleClick);
 
   return (
     <div className="font-worksans">
