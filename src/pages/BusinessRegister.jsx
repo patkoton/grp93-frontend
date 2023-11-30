@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import google from '../assets/images/google-logo.svg'
 import BusinessRegisterForm from '../components/BusinessRegisterForm'
 
 const BusinessRegister = () => {

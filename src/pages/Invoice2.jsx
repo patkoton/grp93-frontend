@@ -85,6 +85,7 @@ const Invoice2 = () => {
       console.error("Error fetching data:", error);
     }
   };
+
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 

@@ -38,6 +38,7 @@ const InvoiceRegisterForm = ({ isOpen, onClose }) => {
             });
     
           // Handle response, e.g., show success message, close modal, etc.
+          console.log(response);
           setMessage('Invoice Created');
           onClose(); // Close the modal
         } catch (error) {

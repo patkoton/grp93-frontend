@@ -38,6 +38,7 @@ const Invoice = () => {
         const allInvoices = response.data;
         // const informations = allInvoices.information
         setAllInvoice(allInvoices)
+        
         // setInformation(informations)
 
         // Calculate total invoices
@@ -62,7 +63,7 @@ const Invoice = () => {
     };
 
     fetchData();
-  }, []);
+  },);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);

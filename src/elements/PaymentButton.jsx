@@ -1,11 +1,8 @@
 import axios from "axios";
 import React from "react";
-import { FaPlus } from "react-icons/fa6";
 import { baseUrl } from "../shared";
-import { useNavigate } from "react-router-dom";
 
 const PaymentButton = () => {
-  const navigate = useNavigate();
 
   const getAuthToken = () => {
     // Implement logic to get the authentication token from wherever it's stored (e.g., localStorage, Redux store)
@@ -38,6 +35,7 @@ const PaymentButton = () => {
       console.error("Error fetching data:", error);
     }
   };
+  console.log(handleClick);
 
   return (
     <div className="font-worksans">

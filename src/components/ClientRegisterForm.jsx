@@ -40,6 +40,7 @@ const ClientRegisterForm = ({ isOpen, onClose }) => {
             });
     
           // Handle response, e.g., show success message, close modal, etc.
+          console.log(response);
           setMessage('Email sent for creation of client, kindly check to login');
           onClose(); // Close the modal
         } catch (error) {
