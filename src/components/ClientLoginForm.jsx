@@ -29,7 +29,7 @@ const ClientLoginForm = () => {
       // Save the JWT token to local storage or state for future requests
       localStorage.setItem('jwtToken', jwtToken);
       setMessage('Login Successful!');
-      navigate('/dasboard2')
+      navigate('/invoice2')
       // Redirect or perform any other actions after successful login
       //navigate('/dashboard')
     } catch (error) {

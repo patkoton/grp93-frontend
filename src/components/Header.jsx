@@ -11,7 +11,6 @@ const Header = () => {
   ];
 
   const handleSearch = (searchTerm) => {
-    console.log('Search term:', searchTerm);
     // Perform search logic here
     const results = allItems.filter(item =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())

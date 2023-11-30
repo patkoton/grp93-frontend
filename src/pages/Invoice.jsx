@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../layout/Layout'
-import InvoiceButton from '../elements/InvoiceButton'
+// import InvoiceButton from '../elements/InvoiceButton'
+import InvoiceRegisterForm from '../components/InvoiceRegisterForm';
 import axios from 'axios';
+import { FaPlus } from 'react-icons/fa6'
 import { baseUrl } from '../shared';
 
 const Invoice = () => {
@@ -12,28 +14,45 @@ const Invoice = () => {
   const [overdueInvoices, setOverdueInvoices] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [invoicesPerPage] = useState(10);
+  const [allInvoice, setAllInvoice] = useState([]);
+  const [information, setInformation] = useState([])
 
   useEffect(() => {
+    const getAuthToken = () => {
+      // Implement logic to get the authentication token from wherever it's stored (e.g., localStorage, Redux store)
+      const auth_token = localStorage.getItem("jwtToken");
+      // Return the authentication token
+      return auth_token;
+    };
     // Fetch data from the backend API
     const fetchData = async () => {
       const url = baseUrl + 'invoice/invoice-information';
       try {
-        const response = await axios.get(url);
+        const authtoken = getAuthToken();
+        const response = await axios.get(url, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authtoken}`,
+          },
+        });
         const allInvoices = response.data;
+        const informations = allInvoices.information
+        setAllInvoice(allInvoices)
+        setInformation(informations)
 
         // Calculate total invoices
-        setTotalInvoices(allInvoices.length);
+        setTotalInvoices(allInvoices.allInvoice);
 
         // Calculate paid invoices
-        const paidInvoicesCount = allInvoices.filter((invoice) => invoice.status === 'paid').length;
+        const paidInvoicesCount = allInvoices.allInvoice
         setPaidInvoices(paidInvoicesCount);
 
         // Calculate outstanding invoices
-        const outstandingInvoicesCount = allInvoices.filter((invoice) => invoice.status === 'outstanding').length;
+        const outstandingInvoicesCount = allInvoices.outstanding
         setOutstandingInvoices(outstandingInvoicesCount);
 
         // Calculate overdue invoices
-        const overdueInvoicesCount = allInvoices.filter((invoice) => isOverdue(invoice.dueDate)).length;
+        const overdueInvoicesCount = allInvoices.overdue
         setOverdueInvoices(overdueInvoicesCount);
 
         setInvoices(allInvoices);
@@ -45,27 +64,30 @@ const Invoice = () => {
     fetchData();
   }, []);
 
-  // Function to check if an invoice is overdue
-  const isOverdue = (dueDate) => {
-    const today = new Date();
-    const due = new Date(dueDate);
-    return due < today;
-  };
-
-  // Get current invoices
-  const indexOfLastInvoice = currentPage * invoicesPerPage;
-  const indexOfFirstInvoice = indexOfLastInvoice - invoicesPerPage;
-  const currentInvoices = invoices.slice(indexOfFirstInvoice, indexOfLastInvoice);
-
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Layout>
-      <div className='p-6'>
-        <div className="block md:flex justify-between items-center font-worksans">
+      <div className={`p-6 ${isModalOpen ? '' : ''}`}>
+      <div className="block md:flex justify-between items-center font-worksans">
           <h4 className='text-2xl font-bold text-dark-blue mb-4'>Invoice</h4>
-          <InvoiceButton />
+          <div className='font-worksans'>
+            <button className='px-5 py-3 flex items-center rounded-lg bg-blue border border-white text-white text-sm font-medium tracking-tighter' onClick={openModal}><FaPlus />&nbsp;Create Invoice</button>
+            <div className=''>
+              <InvoiceRegisterForm isOpen={isModalOpen} onClose={closeModal} />
+            </div>
+          </div>
         </div>
         <div className='flex flex-col md:flex-row mt-6'>
           <div className='flex flex-col md:w-1/4 border-[0.3px] border-r-0 md:border-r border-l-0 border-border-line2 py-5 hover:bg-active-back hover:shadow hover:shadow-shadow-color hover:rounded-xl'>
@@ -108,19 +130,19 @@ const Invoice = () => {
             </tr>
           </thead>
           <tbody>
-            {currentInvoices.map((invoice) => (
+            {allInvoice?.data?.map((invoice) => (
               <tr key={invoice.id}>
                 <td className="py-2 px-4 border-b border-color2">
                   <input type="checkbox" />
                 </td>
                 <td className="py-2 px-4 border-b border-color2">
                   <div>
-                    <h4 className="text-sm font-medium text-color4">{invoice.client}</h4>
+                    <h4 className="text-sm font-medium text-color4">{invoice.username}</h4>
                     <p className="text-xs font-normal text-color5">{invoice.email}</p>
                   </div>
                 </td>
-                <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.invoiceNumber}</td>
-                <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.issueDate}</td>
+                <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice._id}</td>
+                <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.created_at}</td>
                 <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.dueDate}</td>
                 <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{invoice.amount}</td>
                 <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3"><div className={`rounded-2xl p-1 + ${invoice.status === "paid" ? 'bg-color8 border border-color9' : 'bg-color6 border border-color7'}`}>{invoice.status}</div></td>

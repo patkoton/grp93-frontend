@@ -79,7 +79,6 @@ const Invoice2 = () => {
         }
       })
       const { data } = responses
-      console.log(data.status)
       if (data.status === true) {
         const authorizationUrl = data.data.authorization_url
         window.open(authorizationUrl, "_blank")
@@ -88,19 +87,6 @@ const Invoice2 = () => {
       console.error("Error fetching data:", error);
     }
   }
-
-  // Function to check if an invoice is overdue
-  const isOverdue = (dueDate) => {
-    const today = new Date();
-    const due = new Date(dueDate);
-    return due < today;
-  };
-
-  // Get current invoices
-  // const indexOfLastInvoice = currentPage * invoicesPerPage;
-  // const indexOfFirstInvoice = indexOfLastInvoice - invoicesPerPage;
-  // const currentInvoices = invoices.slice(indexOfFirstInvoice, indexOfLastInvoice);
-
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 

@@ -13,12 +13,12 @@ const BusinessRegister = () => {
                     <h4 className='font-medium text-3xl md:text-4xl text-dark-blue tracking-tighter text-center md:text-start'>Create a Business Account</h4>
                     <div className='h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color mt-4'>
                         <Link to="/">
-                            <div className='h-full flex justify-center items-center'>
+                            {/* <div className='h-full flex justify-center items-center'>
                                 <div className='flex gap-2 items-center'>
                                     <img src={google} alt="" />
                                     <span className='font-semibold text-base text-dark-blue'>Sign up with Google</span>
                                 </div> 
-                            </div>
+                            </div> */}
                         </Link>
                         <div className='flex items-center gap-2 mt-4'>
                             <div className='w-[45%] h-[1px] md:w-[204px] bg-light-gray'></div>
