@@ -14,22 +14,39 @@ const Customers = () => {
   const [activeMembers, setActiveMembers] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [customersPerPage] = useState(10);
+  const [allCustomersGotten, setAllCustomersGotten] = useState([])
+  const [subscriptionStatus, setsubscriptionStatus] = useState([])
 
   useEffect(() => {
+    const getAuthToken = () => {
+      // Implement logic to get the authentication token from wherever it's stored (e.g., localStorage, Redux store)
+      const auth_token = localStorage.getItem("jwtToken");
+      // Return the authentication token
+      return auth_token;
+    };
     const fetchData = async () => {
       const url = baseUrl + 'business/get-all-clients';
       try {
-        const response = await axios.get(url);
+        const auth_token = getAuthToken()
+        const response = await axios.get(url, {
+          headers : {
+            "Content-Type" : "application/json",
+            Authorization : `Bearer ${auth_token}`
+          }
+        });
         const allCustomers = response.data;
+        const status = allCustomers.clientPaymentStatus
+        setAllCustomersGotten(allCustomers)
+        setsubscriptionStatus(status)
 
-        setTotalCustomers(allCustomers.length);
+        setTotalCustomers(allCustomers.totalActiveClients);
 
         // Calculate total members
-        const totalMembersCount = allCustomers.filter((customer) => customer.subscriptionStatus !== 'Non-Member').length;
+        const totalMembersCount = allCustomers.totalActiveClients
         setTotalMembers(totalMembersCount);
 
         // Calculate active members
-        const activeMembersCount = allCustomers.filter((customer) => customer.subscriptionStatus === 'Active').length;
+        const activeMembersCount = allCustomers.total_value
         setActiveMembers(activeMembersCount);
 
         setCustomers(allCustomers);
@@ -40,11 +57,18 @@ const Customers = () => {
 
     fetchData();
   }, []);
-
-  // Get current customers
-  const indexOfLastCustomer = currentPage * customersPerPage;
-  const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
-  const currentCustomers = customers.slice(indexOfFirstCustomer, indexOfLastCustomer);
+  const getSubscriptionStatusColor = (paymentStatus) => {
+    switch (paymentStatus) {
+      case 'overdue':
+        return 'bg-color8 border border-color9';
+      case 'outstanding':
+        return 'bg-color6 border border-color7';
+      case 'paid':
+        return 'bg-colorX border border-colorY'; // Customize for paid status
+      default:
+        return 'bg-colorZ border border-colorW'; // Customize for other cases or no status
+    }
+  };
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -98,28 +122,52 @@ const Customers = () => {
             <tr>
               <th className="py-2 px-4 text-xs font-medium text-color3">Name</th>
               <th className="py-2 px-4 text-xs font-medium text-color3">User ID</th>
-              <th className="py-2 px-4 text-xs font-medium text-color3">Number of Orders</th>
-              <th className="py-2 px-4 text-xs font-medium text-color3">Last Login</th>
+              <th className="py-2 px-4 text-xs font-medium text-color3">Username</th>
+              <th className="py-2 px-4 text-xs font-medium text-color3">Email</th>
               <th className="py-2 px-4 text-xs font-medium text-color3">Subscription Status</th>
             </tr>
           </thead>
           <tbody>
-            {currentCustomers.map((customer) =>  (
-              <tr key={customer.id}>
+            {allCustomersGotten?.data?.map((customer) =>  (
+              <tr key={customer._id}>
                   <td className="py-2 px-4 border-b border-color2">
                       <div className='flex items-center'>
                           <div className='w-6 h-6 rounded-sm'>
                               <img src={customer.image} alt="" className='w-full' />
                           </div>
-                          <div><h4 className="text-sm font-medium text-color4">{customer.name}</h4>
+                          <div><h4 className="text-sm font-medium text-color4">{customer.clientName}</h4>
                               <p className="text-xs font-normal text-color5">{customer.email}</p>
                           </div>
                       </div>
                   </td>
-                  <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{customer.userId}</td>
-                  <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{customer.numberOfOrders}</td>
-                  <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{customer.lastLogin}</td>
-                  <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3"><div className={`rounded-2xl p-1 + ${customer.subscriptionStatus === "active" ? 'bg-color8 border border-color9' : 'bg-color6 border border-color7'}`}>{customer.subscriptionStatus}</div></td>
+                  <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{customer._id}</td>
+                  <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{customer.username}</td>
+                  <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">{customer.clientEmail}</td>
+                  {/* <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3"><div className={`rounded-2xl p-1 + ${customer.subscriptionStatus === "active" ? 'bg-color8 border border-color9' : 'bg-color6 border border-color7'}`}>{customer.clientPaymentStatus}</div></td> */}
+                  {/* {subscriptionStatus.map((status) => (
+                    <td className='py-2 px-4 border-b border-color2 text-sm font-normal text-color3'>
+                        <div>{status.paymentStatus}</div>
+                    </td>
+                  ))} */}
+                  {/* gpt */}
+                  <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">
+                  {subscriptionStatus
+                    .filter((status) => status.clientId === customer._id)
+                    .map((filteredStatus) => (
+                      <div
+                        key={filteredStatus.clientId}
+                        className={`rounded-2xl p-1 ${getSubscriptionStatusColor(filteredStatus.paymentStatus)}`}
+                      >
+                        {filteredStatus.paymentStatus}
+                      </div>
+                    ))}
+                </td>
+                  {/* end */}
+                  {/* <td className="py-2 px-4 border-b border-color2 text-sm font-normal text-color3">
+                  <div className={`rounded-2xl p-1 ${getSubscriptionStatusColor(customer.clientPaymentStatus)}`}>
+        {getPaymentStatus(customer.clientPaymentStatus, customer._id)}
+      </div>
+      </td> */}
               </tr>
             ))}
           </tbody>

@@ -11,7 +11,7 @@ const nav1 = [
   { name: 'Customers', href: '/customer', icon: <People size="16" color="#FFF" /> },
 ]
 const nav2 = [
-  { name: 'Bling', href: '/bling', icon: <Money size="16" color="#FFF" />  },
+  { name: 'Billing', href: '/bling', icon: <Money size="16" color="#FFF" />  },
   { name: 'Support', href: '/support', icon: <UserOctagon size="16" color="#FFF" /> },
   { name: 'Settings', href: '/setting', icon: <Setting2 size="16" color="#FFF" /> },
 ]
@@ -33,7 +33,6 @@ const Sidebar = ({ onLogout }) => {
   ];
 
   const handleSearch = (searchTerm) => {
-    console.log('Search term:', searchTerm);
     // Perform search logic here
     const results = allItems.filter(item =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())

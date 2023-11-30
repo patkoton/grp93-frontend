@@ -2,16 +2,14 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { baseUrl } from '../shared';
 
-const ClientRegisterForm = ({ isOpen, onClose }) => {
+const InvoiceRegisterForm = ({ isOpen, onClose }) => {
     const [formData, setFormData] = useState({
-        clientName: '',
-        clientPhoneNumber: '',
-        clientEmail: '',
+        clientId: '',
+        amount: '',
+        dueDate: '',
       });
-
     const [message, setMessage] = useState('');
 
-    //const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,12 +23,12 @@ const ClientRegisterForm = ({ isOpen, onClose }) => {
       };
 
     const handleSubmit = async (e) => {
-        const url = baseUrl + 'client/create-client';
+        const url = baseUrl + 'invoice/create-invoice';
         e.preventDefault();
 
         try {
           // Send POST request to the backend API
-          const authToken = getAuthToken()
+          const authToken = getAuthToken();
 
             // Send POST request to the backend API with the authentication token in the headers
             const response = await axios.post(url, formData, {
@@ -40,7 +38,7 @@ const ClientRegisterForm = ({ isOpen, onClose }) => {
             });
     
           // Handle response, e.g., show success message, close modal, etc.
-          setMessage('Email sent for creation of client, kindly check to login');
+          setMessage('Invoice Created');
           onClose(); // Close the modal
         } catch (error) {
           // Handle errors, e.g., show error message
@@ -55,39 +53,39 @@ const ClientRegisterForm = ({ isOpen, onClose }) => {
             <div className="z-10 bg-white p-4 rounded shadow-md">
                 <form action="" className='mt-8'>
                     <div>
-                        <label htmlFor="clientName" className='block font-medium text-base text-dark-blue'>
-                            Client Name
+                        <label htmlFor="clientId" className='block font-medium text-base text-dark-blue'>
+                            Client ID
                         </label>
                         <input  type="text" 
-                                name="clientName" 
-                                value={formData.clientName} 
+                                name="clientId" 
+                                value={formData.clientId} 
                                 onChange={handleChange}
                                 className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
-                                placeholder='Client Name'
+                                placeholder='Client Id'
                         />
                     </div>
                     <div className='mt-4'>
-                        <label htmlFor="clientPhoneNumber" className='block font-medium text-base text-dark-blue'>
-                            Phone Number
+                        <label htmlFor="amount" className='block font-medium text-base text-dark-blue'>
+                            Amount
                         </label>
-                        <input  type="tel" 
-                                name="clientPhoneNumber" 
-                                value={formData.clientPhoneNumber} 
+                        <input  type="number" 
+                                name="amount" 
+                                value={formData.amount} 
                                 onChange={handleChange}
                                 className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
-                                placeholder='Phone Number'
+                                placeholder='Amount'
                         />
                     </div>
                     <div className='mt-4'>
-                        <label htmlFor="clientEmail" className='block font-medium text-base text-dark-blue'>
-                            Email Address
+                        <label htmlFor="dueDate" className='block font-medium text-base text-dark-blue'>
+                            Due Date
                         </label>
-                        <input  type="email" 
-                                name="clientEmail" 
-                                value={formData.clientEmail} 
+                        <input  type="date" 
+                                name="dueDate" 
+                                value={formData.dueDate} 
                                 onChange={handleChange}
                                 className='w-full h-12 rounded-md bg-input-backg border border-border-line shadow shadow-shadow-color px-5 placeholder:px-1 mt-2'
-                                placeholder='Email'
+                                placeholder='Due Date'
                         />
                     </div>
                     <div className='mt-10'>
@@ -95,7 +93,7 @@ const ClientRegisterForm = ({ isOpen, onClose }) => {
                                 onClick={handleSubmit}
                                 className='w-full h-12 rounded-md bg-blue font-semibold text-base text-input-backg'
                         >
-                            Create Client
+                            Create Invoice
                         </button>
                     </div>
                 </form>
@@ -106,4 +104,4 @@ const ClientRegisterForm = ({ isOpen, onClose }) => {
   )
 }
 
-export default ClientRegisterForm
+export default InvoiceRegisterForm
